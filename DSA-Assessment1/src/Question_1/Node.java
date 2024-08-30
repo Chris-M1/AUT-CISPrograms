@@ -28,14 +28,10 @@ public class Node<E extends Comparable> {
 
     public int compareTo(Node<E> node) {
         return data.compareTo(node.data);
-        // return 0;
     }
 
     @Override
     public String toString() {
-        // if (next != null) {
-        // return data + "";
-        // }
         return data + " ";
     }
 }

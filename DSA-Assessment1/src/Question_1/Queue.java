@@ -15,9 +15,6 @@ public class Queue<E extends Comparable<E>> {
 
     public E dequeue() {
         Node<E> node = queue.removeFromHead();
-        // if(node == null){
-        // return queue.head.data;
-        // }
 
         return node.data;
     }

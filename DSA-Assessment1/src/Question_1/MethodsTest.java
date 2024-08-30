@@ -21,9 +21,6 @@ public class MethodsTest {
         System.out.println("The tail of the list is: " + test.getTail());
 
         System.out.println(test.contains(new Node(9)));
-        // test.add(56);
-        // test.addHead(18);
-        // test.printLinkedList();
         System.out.println("Size: " + test.size);
 
         test.remove(10);
@@ -32,17 +29,5 @@ public class MethodsTest {
         test.removeFromTail();
         test.printLinkedList();
         System.out.println("Size: " + test.size);
-
-        // test.removeFromHead();
-        // test.printLinkedList();
-        // System.out.println("Size: " + test.size);
-        // System.out.println(test.getNode(5).toString());
-        // int i = 10;
-        // while(i > 10){
-        // test.add(i);
-        // }
-        // System.out.println("toString test:");
-        // System.out.println(test.toString());
-        //
     }
 }

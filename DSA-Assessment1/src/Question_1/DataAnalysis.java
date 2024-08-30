@@ -6,8 +6,6 @@ package Question_1;
  * @param <E>
  */
 public class DataAnalysis<E extends Comparable<E>> {
-    // private Queue<E> queue = new Queue();
-    // private Stack<E> stack = new Stack();
     private E[] data;
 
     public DataAnalysis(E[] data) {

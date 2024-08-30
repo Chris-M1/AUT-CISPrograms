@@ -18,8 +18,6 @@ public class LinkedList<E extends Comparable<E>> {
         if (head == null) {
             this.addHead(data);
         } else {
-            // Node<E> temp = this.getTail();
-            // temp.next = new Node(data);
             this.getTail().next = new Node<>(data);
             size++;
         }
@@ -47,7 +45,7 @@ public class LinkedList<E extends Comparable<E>> {
         return this.getTail(head);
     }
 
-    // recusion to get last node
+    // Recursion to get last node
     private Node getTail(Node<E> node) {
         if (node.next == null) {
             return node;

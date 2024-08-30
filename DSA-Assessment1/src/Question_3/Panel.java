@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Question_3;
 
 import java.awt.BorderLayout;
@@ -15,10 +10,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Timer;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
-import javax.swing.JToggleButton;
 
 /**
  *
@@ -28,14 +23,18 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
 
     int number_ship = 20;
     boolean program_starts = false;
+    boolean modeSelected = false;
+    boolean syncMode = false;
     Ship[] ships = new Ship[number_ship];
     Port port;
 
     Image ship_image;
     Image island_image;
     Image boat_island_image;
+    boolean showBoatIslandImage = false; // Track when to show boat_island_image
 
-    // JToggleButton syncSwitch;
+    int currentShipIndex = 0; // Tracks next ship thread
+
     Thread[] threads = new Thread[number_ship];
     JButton syncButton = new JButton("Sync Mode");
     JButton unyncButton = new JButton("Unsync Mode");
@@ -47,8 +46,8 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         port = new Port(900, 500);
 
         for (int i = 0; i < number_ship; i++) {
-
-            ships[i] = new Ship(20, i * 50, port);
+            ships[i] = new Ship(20, i * 50, port, this); // Pass the Panel instance to Ship
+            ships[i].syncMode = syncMode; // Set syncMode for each ship
             threads[i] = new Thread(ships[i]);
         }
 
@@ -56,11 +55,11 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         island_image = new ImageIcon("land.png").getImage();
         boat_island_image = new ImageIcon("boat_land.png").getImage();
 
-        // initialize the buttons
         syncButton.addActionListener(this);
         unyncButton.addActionListener(this);
         this.add(syncButton, BorderLayout.CENTER);
         this.add(unyncButton, BorderLayout.CENTER);
+
     }
 
     public void paintComponent(Graphics g) {
@@ -70,8 +69,9 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         for (Ship ship : ships) {
             g.drawImage(ship_image, ship.x, ship.y, this);
         }
+
         // draw island
-        if (port.occupied) {
+        if (showBoatIslandImage) {
             g.drawImage(boat_island_image, port.x, port.y, this);
         } else {
             g.drawImage(island_image, port.x, port.y, this);
@@ -81,8 +81,19 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
 
         // set button invisible after the game starts
         hidButton();
+    }
 
+    public void triggerBoatImageDisplay() {
+        showBoatIslandImage = true;
         repaint();
+        // Timer to show docked ship
+        new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showBoatIslandImage = false;
+                repaint();
+            }
+        }).start();
     }
 
     private void hidButton() {
@@ -121,40 +132,51 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         }
     }
 
-    private void startGame(boolean syncMode) {
-        for (int i = 0; i < number_ship; i++) {
-            ships[i].syncMode = syncMode;
-            threads[i].start();
+    private void setSyncModeForShips(boolean syncMode) {
+        for (Ship ship : ships) {
+            ship.syncMode = syncMode;
         }
-        program_starts = true;
-        // this.requestFocusInWindow(); // Set focus on the panel to receive key events
-        // if (!program_starts) {
-        // }
     }
 
-    // button listener
+    @Override // Check if synchronized or unsychronized is selected.
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == syncButton) {
-            startGame(true);
+            modeSelected = true;
+            syncMode = true;
+            setSyncModeForShips(true);
+            program_starts = true;
+            hidButton();
         } else if (e.getSource() == unyncButton) {
-            startGame(false);
+            modeSelected = true;
+            syncMode = false;
+            setSyncModeForShips(false);
+            program_starts = true;
+            hidButton();
         }
     }
 
     @Override
     public void keyTyped(KeyEvent ke) { // switch the program_starts flag
         System.out.println("\"" + ke.getKeyChar() + "\" is typed.");
-        // this.program_starts = !this.program_starts;
     }
 
     @Override
-    public void keyPressed(KeyEvent ke) {
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) { // Check if the space key is pressed
+            if (!modeSelected) {
+                return; // Do nothing if no mode has been selected
+            }
 
+            if (currentShipIndex < number_ship) {
+                threads[currentShipIndex].start(); // Start the current ship's thread
+                currentShipIndex++; // Move to the next ship for the next space key press
+            }
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent ke) {
-
+        // placeholder
     }
 
 }
