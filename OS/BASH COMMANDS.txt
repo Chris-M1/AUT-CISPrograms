@@ -1,0 +1,44 @@
+BASH COMMANDS
+ls -- Lists the current directory
+ -al -- Lists all files (including hidden) in directory
+ / -- Goes to root directory
+ /bin -- Commands for system
+ /boot -- Files needed for system boot
+ /dev -- contains device files of the system
+ /lib -- contains libraries for programs in bin
+ /home -- contains home directories of users
+ /mnt -- contains temporarily mounted file systems
+ /media -- contains mount points for removable media
+ /usr -- hierarchy of directories
+ .. -- lists the directory directly above the current one
+chmod +x .bashrc -- Changes the file to be executable by everyone
+cd 'folder' -- changes the current directory
+mkdir -- Creates a new directory
+rmdir -- Deletes a named directory
+
+less -- Opens a cat file
+cat > -- Creates a named file and gives text box. (SIMILAR TO NANO)
+Cat >> -- Appends a named file
+CTRL Z -- Closes cat file
+CTRL D -- Ends writing of cat file
+man cat -- Shows commands+ of cat
+cat /etc/shells -- Shows all shells
+
+Permissions for chmod
+rwx = 111 (binary) = 7 (in decimal)
+rw- = 110 (binary) = 6
+r-x = 101 (binary) = 5
+r-- = 100 (binary) = 4
+
+echo 'message' -- Shows a message in the terminal
+
+nano filename -- Starts text editor nano with the filename
+mv nyr nyr2024 -- Command to move a file to a new directory, or change the name if not specified to a existing folder.
+cp nyr2024 ../nyr-new
+ls 'directory' | less -- shows the list of directory as one long list
+sort shop22 | grep green > green -- saves lines in alphabetical order that contains the word green.
+export PS1="\u %" -- Changes the username shown in files.
+
+extern "Variable" -- This can allow the use of 2 different files without the use of include
+gcc "" -- Compiles a file. (Usually a c script)
+gcc -c -- Compiles the file without linking /?
