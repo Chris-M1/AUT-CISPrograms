@@ -51,9 +51,10 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
             threads[i] = new Thread(ships[i]);
         }
 
-        ship_image = new ImageIcon("boat.png").getImage();
-        island_image = new ImageIcon("land.png").getImage();
-        boat_island_image = new ImageIcon("boat_land.png").getImage();
+        ship_image = new ImageIcon(getClass().getResource("/Question_3/resources/boat.png")).getImage();
+        island_image = new ImageIcon(getClass().getResource("/Question_3/resources/land.png")).getImage();
+        boat_island_image = new ImageIcon(getClass().getResource("/Question_3/resources/boat_land.png")).getImage();
+
 
         syncButton.addActionListener(this);
         unyncButton.addActionListener(this);

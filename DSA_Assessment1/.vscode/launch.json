@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SnakeGame",
+            "request": "launch",
+            "mainClass": "Question_2.SnakeGame",
+            "projectName": "Miller_Christopher_20118392_83e99faa"
+        },
+        {
+            "type": "java",
+            "name": "ShipDemo",
+            "request": "launch",
+            "mainClass": "Question_3.ShipDemo",
+            "projectName": "Miller_Christopher_20118392_83e99faa"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
