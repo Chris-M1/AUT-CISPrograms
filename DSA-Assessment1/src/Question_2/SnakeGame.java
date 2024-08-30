@@ -32,7 +32,7 @@ public class SnakeGame {
         // init game panel
         Panel panel = new Panel();
         panel.setPreferredSize(new Dimension(800, 800));
-        panel.setBackground(Color.gray);
+        panel.setBackground(Color.BLACK);
         panel.setFocusable(true);
         panel.requestFocusInWindow();
 

@@ -29,12 +29,14 @@ public class RandomUtils {
     }
 
     public static int getRandomX(int maxWidth) {
-        int x = RAND.nextInt(maxWidth / 10) * 10; // Generate X-axis along the same X-axis as snake
+        int x = 10 + RAND.nextInt((maxWidth - 20) / 10) * 10; // Ensure at least 10-pixel margin from the left and right
+                                                              // edges
         return x;
     }
 
     public static int getRandomY(int maxHeight) {
-        int y = RAND.nextInt(maxHeight / 10) * 10; // Generate Y-axis along same Y-axis as snake
+        int y = 10 + RAND.nextInt((maxHeight - 20) / 10) * 10; // Ensure at least 10-pixel margin from the top and
+                                                               // bottom edges
         return y;
     }
 

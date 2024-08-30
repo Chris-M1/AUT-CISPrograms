@@ -25,6 +25,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
     private SnakeBody letter;
     private int direction; // 0 = up, 1 = right, 2 = down, 3 = left
     private Timer timer;
+    private boolean isGameOver = false;
 
     public Panel() {
         this.snake = new Snake("@", 100, 100); // Initialize the snake
@@ -73,31 +74,45 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
     public void paint(Graphics g) {
         super.paint(g);
 
+        // Set a larger font size for better visibility
+        g.setFont(new Font("Ariel", 1, 18)); // Increase font size to 24, can adjust as needed
+
+        if (isGameOver) {
+            g.setColor(Color.RED);
+            g.drawString("Game Over!", getWidth() / 2 - 60, getHeight() / 2); // Adjusted position for larger text
+            return;
+        }
+
         // Draw the snake
         drawSnake(g);
 
-        // Draw the food (letter)
+        // Draw the letter (food)
         if (letter != null) {
+            g.setColor(Color.RED); // Set color for the letter
             g.drawString(String.valueOf(letter.getBody()), letter.getLocation().x, letter.getLocation().y);
         }
 
-        // Draw numbers
+        // Draw the numbers
         drawNumbers(g);
-    }
 
-    public void drawNumbers(Graphics g) {
-        for (SnakeBody number : numbers) {
-            g.drawString(String.valueOf(number.getBody()), number.getLocation().x, number.getLocation().y);
-        }
+        // Display the score
+        g.setColor(Color.WHITE); // Set color for the score text
+        g.drawString("Score: " + snake.getLength(), 10, 30); // Adjusted position for larger text
     }
 
     public void drawSnake(Graphics g) {
         SnakeBody body = snake.getHead();
+        g.setColor(Color.GREEN); // Set color for the snake
         while (body != null) {
-            if (body.getLocation() != null) {
-                g.drawString(String.valueOf(body.getBody()), body.getLocation().x, body.getLocation().y);
-            }
+            g.drawString(String.valueOf(body.getBody()), body.getLocation().x, body.getLocation().y);
             body = body.getNext();
+        }
+    }
+
+    public void drawNumbers(Graphics g) {
+        g.setColor(Color.BLUE); // Set color for numbers
+        for (SnakeBody number : numbers) {
+            g.drawString(String.valueOf(number.getBody()), number.getLocation().x, number.getLocation().y);
         }
     }
 
@@ -120,8 +135,13 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         // Check for collisions with numbers
         for (int i = 0; i < numbers.size(); i++) {
             SnakeBody number = numbers.get(i);
-            System.out.println("Number " + number.getBody() + " Position: " + number.getLocation()); // Debugging: Print
-                                                                                                     // number position
+            // System.out.println("Number " + number.getBody() + " Position: " +
+            // number.getLocation());
+
+            if (headLocation.equals(number.getLocation()) && snake.getLength() == 0) {
+                isGameOver = true;
+                displayGameOverMessage();
+            }
             if (headLocation.equals(number.getLocation())) {
                 System.out.println("Collision with number: " + number.getBody());
                 snake.removeLetterAtPosition(number.getBody() - '0');
@@ -129,7 +149,28 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
                 generateNewNumber();
                 break;
             }
+
         }
+    }
+
+    private void checkBorderCollision() {
+        Point headLocation = snake.getHead().getLocation();
+        int x = headLocation.x;
+        int y = headLocation.y;
+
+        // Check if the snake's head is outside the boundaries of the panel
+        if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
+            isGameOver = true;
+            displayGameOverMessage();
+        }
+    }
+
+    private void displayGameOverMessage() {
+        // Stop the timer to stop the game
+        timer.stop();
+
+        // Show "Game Over" message
+        JOptionPane.showMessageDialog(this, "Game Over!", "Game Over", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void generateNewLetter() {
@@ -199,12 +240,14 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // This method is called by the Timer every time it ticks
-        snake.run(direction); // Move the snake in the current direction
+        if (!isGameOver) {
+            snake.run(direction); // Move the snake in the current direction
 
-        checkCollisions(); // Check for collisions with numbers or the letter
+            checkCollisions(); // Check for collisions with numbers or the letter
+            checkBorderCollision(); // Check for collision with the border
 
-        repaint(); // Repaint the panel to show the updated snake position
+            repaint(); // Repaint the panel to show the updated snake position
+        }
     }
 
     @Override

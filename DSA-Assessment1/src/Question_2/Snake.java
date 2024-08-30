@@ -17,9 +17,6 @@ import java.awt.Point;
 public class Snake {
 
     private SnakeBody head;
-    private int score;
-    private int speed;
-    private int size;
 
     public Snake(String initialBody, int startX, int startY) {
         head = new SnakeBody(initialBody.charAt(0), new Point(startX, startY));
@@ -125,26 +122,20 @@ public class Snake {
         }
     }
 
-    public void setBounder() {
-        // set the bounder for snake, if snake hits the bounder it goes to the other
-        if (head.getLocation().x > 780) {
-            head.setLocation(20, head.getLocation().y);
-        }
-        if (head.getLocation().x < 20) {
-            head.setLocation(780, head.getLocation().y);
-
-        }
-        if (head.getLocation().y > 780) {
-            head.setLocation(head.getLocation().x, 20);
-
-        }
-        if (head.getLocation().y < 0) {
-            head.setLocation(head.getLocation().x, 780);
-        }
-    }
-
     public SnakeBody getHead() {
         return this.head;
+    }
+
+    public int getLength() {
+        int length = 0;
+        SnakeBody current = head;
+
+        while (current != null) {
+            length++;
+            current = current.getNext();
+        }
+
+        return length - 1;
     }
 
 }
