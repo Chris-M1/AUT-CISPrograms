@@ -4,12 +4,11 @@
  */
 package Question_2;
 
-import java.awt.Point;
 import java.util.Random;
 
 /**
  *
- * @author wskin
+ * @author Chris Miller
  */
 public class RandomUtils {
 
@@ -21,7 +20,7 @@ public class RandomUtils {
     }
 
     public static int getRandomNumber() {
-        return RAND.nextInt(11) + 1; // Generates a number between 1 and 9
+        return RAND.nextInt(10); // Generates a number between 1 and 9
     }
 
     public static char getRandomLetter() {
@@ -29,14 +28,14 @@ public class RandomUtils {
     }
 
     public static int getRandomX(int maxWidth) {
-        int x = 10 + RAND.nextInt((maxWidth - 20) / 10) * 10; // Ensure at least 10-pixel margin from the left and right
-                                                              // edges
+        int x = 20 + RAND.nextInt((maxWidth - 40) / 20) * 20; // Ensure alignment with the snake's movement, with a
+                                                              // margin of 20 pixels
         return x;
     }
 
     public static int getRandomY(int maxHeight) {
-        int y = 10 + RAND.nextInt((maxHeight - 20) / 10) * 10; // Ensure at least 10-pixel margin from the top and
-                                                               // bottom edges
+        int y = 20 + RAND.nextInt((maxHeight - 40) / 20) * 20; // Ensure alignment with the snake's movement, with a
+                                                               // margin of 20 pixels
         return y;
     }
 

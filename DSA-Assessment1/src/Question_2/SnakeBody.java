@@ -17,9 +17,6 @@ public class SnakeBody {
     private SnakeBody prev;
     private char body;
     private SnakeBody next;
-    // the x and y coordinates of the body
-    // private int x;
-    // private int y;
     private Point location;
 
     public SnakeBody(char body) {

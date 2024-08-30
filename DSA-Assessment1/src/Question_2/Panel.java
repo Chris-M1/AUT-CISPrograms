@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 
 /**
  *
- * @author xhu
+ * @author Chris Miller
  */
 public class Panel extends JPanel implements KeyListener, ActionListener {
 
@@ -36,7 +36,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         addKeyListener(this); // Add key listener to capture arrow key presses
 
         // Initialize the timer to control the snake's speed
-        int initialDelay = 50; // Adjust this value to control the speed (milliseconds)
+        int initialDelay = 100; // Tick Speed of Game
         timer = new Timer(initialDelay, this);
         timer.start();
     }
@@ -78,7 +78,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         g.setFont(new Font("Ariel", 1, 18)); // Increase font size to 24, can adjust as needed
 
         if (isGameOver) {
-            g.setColor(Color.RED);
+            g.setColor(Color.WHITE);
             g.drawString("Game Over!", getWidth() / 2 - 60, getHeight() / 2); // Adjusted position for larger text
             return;
         }
@@ -102,7 +102,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
 
     public void drawSnake(Graphics g) {
         SnakeBody body = snake.getHead();
-        g.setColor(Color.GREEN); // Set color for the snake
+        g.setColor(Color.PINK); // Set color for the snake
         while (body != null) {
             g.drawString(String.valueOf(body.getBody()), body.getLocation().x, body.getLocation().y);
             body = body.getNext();
@@ -110,7 +110,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
     }
 
     public void drawNumbers(Graphics g) {
-        g.setColor(Color.BLUE); // Set color for numbers
+        g.setColor(Color.gray); // Set color for numbers
         for (SnakeBody number : numbers) {
             g.drawString(String.valueOf(number.getBody()), number.getLocation().x, number.getLocation().y);
         }

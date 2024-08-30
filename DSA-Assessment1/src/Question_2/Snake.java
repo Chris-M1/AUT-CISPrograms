@@ -4,15 +4,12 @@
  * and open the template in the editor.
  */
 package Question_2;
-//import Question_1.LinkedList;
 
-//import Question_1.Node;
-//import java.util.LinkedList;
 import java.awt.Point;
 
 /**
  *
- * @author xhu
+ * @author Chris Miller
  */
 public class Snake {
 
@@ -35,16 +32,16 @@ public class Snake {
 
         switch (direction) {
             case 0: // up
-                current.setLocation(current.getLocation().x, current.getLocation().y - 10);
+                current.setLocation(current.getLocation().x, current.getLocation().y - 20);
                 break;
             case 1: // right
-                current.setLocation(current.getLocation().x + 10, current.getLocation().y);
+                current.setLocation(current.getLocation().x + 20, current.getLocation().y);
                 break;
             case 2: // down
-                current.setLocation(current.getLocation().x, current.getLocation().y + 10);
+                current.setLocation(current.getLocation().x, current.getLocation().y + 20);
                 break;
             case 3: // left
-                current.setLocation(current.getLocation().x - 10, current.getLocation().y);
+                current.setLocation(current.getLocation().x - 20, current.getLocation().y);
                 break;
         }
 

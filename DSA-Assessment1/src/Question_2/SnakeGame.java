@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 
 /**
  *
- * @author xhu
+ * @author Chris Miller
  */
 public class SnakeGame {
 
